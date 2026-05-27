@@ -12,6 +12,4 @@ class TestController:
         r.validate()
 
         self.usecase.do_service()
-
-
-
+        self.usecase.glugentgate_service()

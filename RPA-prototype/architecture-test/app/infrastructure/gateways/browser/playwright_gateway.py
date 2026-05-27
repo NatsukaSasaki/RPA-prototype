@@ -13,23 +13,18 @@ class PlaywrightBrowser(BrowserAdapter):
 
     def start(self):
         self.playwright = sync_playwright().start()
+        
+    def page_goto(self, url: str):
         self.context = self.playwright.chromium.launch(headless = False)
-        self.context2 = self.playwright.chromium.launch(headless = False)
-
-"""
-    def poweregg_login(self, url: str):
-        self.page = self.context.new_page()
-        self.page.goto(url)
-        self.page.locator("input[type=\"submit\"][value=\"ログイン\"]").click()
-
-    def glogent_gate_login(self, url: str):
-        self.page2 = self.context2.new_page()
-        self.page2.goto(url)
-        self.page2.locator("input[type=\"submit\"][value=\"ログイン\"]").click()
-"""
-    def login(self, url: str):
         self.page = self.context2.new_page()
         self.page.goto(url)
+
+    def page2_goto(self, url: str):
+        self.context2 = self.playwright.chromium.launch(headless = False)
+        self.page2 = self.context2.new_page()
+        self.page2.goto(url)
+
+    def click_submit_login(self):
         self.page.locator("input[type=\"submit\"][value=\"ログイン\"]").click()
 
     def get_user_id(self):
@@ -38,11 +33,17 @@ class PlaywrightBrowser(BrowserAdapter):
 
     def update_password(self, number: str):
         self.page2.locator("input[id=\"serch_text\"]").fill("123456")
+
+    def click_submit_search(self):
         self.page2.locator("input[type=\"submit\"][value=\"検索\"]").click()
+
+    def fill_password(self):
         self.page2.locator("input[id=\"password\"]").fill("Ncb019011")
+
+    def click_submit_update(self):
         self.page2.locator("input[type=\"submit\"][value=\"更新\"]").click()
 
-    def status_complete(self):
+    def click_status_complete(self):
         self.page.locator("input[type=\"submit\"][value=\"詳細\"]").click()
         self.page.locator("input[type=\"submit\"][value=\"完了\"]").click()
 
