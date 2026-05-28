@@ -7,25 +7,20 @@ class TestService:
     def start(self):
         print("start do_service")
         self.browser.start()
+    
+    def add_page(self,name):
+        page =self.browser.add_page(name)
+        return page
+    
+    def change_page(self,name):
+        self.browser.change_page(name)
 
     def poweregg_login(self):
-        self.browser.page_goto("http://localhost/architecture-test/app/infrastructure/gateways/browser/login.html")
-        self.browser.click_submit_login()
-    def glogent_gate_login(self):
-        self.browser.page2_goto("http://localhost/architecture-test/app/infrastructure/gateways/browser/login2.html")
-        self.browser.click_submit_login()
-
+        self.browser.context_goto("http://localhost/architecture-test/app/infrastructure/gateways/browser/login.html")
+        
     def get_user_id(self):
-        self.browser.get_user_id()
-
-    def update_password(self, url: str):
-        self.browser.update_password(123456)
-        self.browser.click_submit_search()
-        self.browser.fill_password()
-        self.browser.click_submit_update()
-
-    def click_status_complete(self):
-        self.browser.status_complete()
+        number = self.browser.get_user_id()
+        return number
 
     def close(self):
         self.browser.close()
