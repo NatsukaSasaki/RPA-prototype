@@ -4,49 +4,49 @@ import time
 
 class PlaywrightBrowser(BrowserAdapter):
 
+
     def __init__(self):
         self.playwright = None
         self.browser = None
-        self.context = None
+        context = None
         self.page = None
-        self.pages = {}
 
-    def playwright_start(self):
-        self.playwright = sync_playwright().start()
 
     def start(self):
+        self.playwright = sync_playwright().start()
+
         self.browser = self.playwright.chromium.launch(
             headless = False
             )
 
         self.context = self.browser.new_context()
-
         self.page = self.context.new_page()
+        return self.page
 
+    def setup_browser(self):
+        pass
 
-    def add_page(self, name):
-        page = self.context.new_page()
-
-        return page
-        
-        
+    def create_page(self):
+        self.page = self.context.new_page()
+        return self.page
+      
     def change_page(self, page):
-        self.context = self.browser.new_context()
         self.page = page
-        self.page = self.context.new_page()
 
     def goto(self, url: str):
         self.page.goto(url)
 
     def get_user_id(self):
-        number = self.page.locator("tr").locator("td").nth(1).text_content()
+        number = self.page.locator("#staff_number").text_content()
         return number
 
     def click(self, target):
         self.page.locator(target).click()
 
-    def fill(self, target, password: str):
-        self.page.locator(target).fill(password)
+    def fill(self, target:str, input: str):
+        self.page.locator(target).fill(input)
+        #locator = self.page.locator("#search_text")
+        #print(locator.count()) 
 
     def close(self):
         print("close")
