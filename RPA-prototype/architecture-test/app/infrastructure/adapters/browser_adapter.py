@@ -6,19 +6,28 @@ class BrowserAdapter(ABC):
     def start(self):
         pass
     @abstractmethod
-    def poweregg_login(self, url: str):
+    def setup_browser(self):
         pass
     @abstractmethod
-    def glogent_gate_login(self, url: str):
+    def setup_browser(self,name):
+        pass
+    @abstractmethod
+    def create_page(self):
+        pass
+    @abstractmethod
+    def change_page(self,name):
+        pass
+    @abstractmethod
+    def goto(self, url: str):
         pass
     @abstractmethod
     def get_user_id(self):
         pass
     @abstractmethod
-    def update_password(self):
+    def click(self):
         pass
     @abstractmethod
-    def status_complete(self):
+    def fill(self, target, password: str):
         pass
     @abstractmethod
     def close(self):
